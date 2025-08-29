@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visakhapatnam News CMS - Admin Panel</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Login Screen -->
+    <div id="login-screen" class="login-screen">
+        <div class="login-container">
+            <div class="login-header">
+                <i class="fas fa-newspaper"></i>
+                <h1>Visakhapatnam News</h1>
+                <p>Content Management System</p>
+            </div>
+            <form id="login-form" class="login-form">
+                <div class="form-group">
+                    <label class="form-label" for="username">Username</label>
+                    <input type="text" id="username" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="password">Password</label>
+                    <input type="password" id="password" class="form-control" required>
+                </div>
+                <button type="submit" class="btn btn--primary btn--full-width">Login</button>
+                <p class="login-hint">Default: admin / admin123</p>
+            </form>
+        </div>
+    </div>
+
+    <!-- Main CMS Interface -->
+    <div id="cms-interface" class="cms-interface hidden">
+        <!-- Top Header -->
+        <header class="cms-header">
+            <div class="header-left">
+                <button id="sidebar-toggle" class="sidebar-toggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <h1 class="cms-title">Visakhapatnam News CMS</h1>
+            </div>
+            <div class="header-right">
+                <button id="theme-toggle" class="theme-toggle">
+                    <i class="fas fa-moon"></i>
+                </button>
+                <div class="user-menu">
+                    <span class="user-name">Admin User</span>
+                    <button id="logout-btn" class="btn btn--outline btn--sm">
+                        <i class="fas fa-sign-out-alt"></i> Logout
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Sidebar Navigation -->
+        <nav class="cms-sidebar" id="cms-sidebar">
+            <div class="sidebar-content">
+                <ul class="sidebar-menu">
+                    <li class="menu-item active" data-section="dashboard">
+                        <i class="fas fa-tachometer-alt"></i>
+                        <span>Dashboard</span>
+                    </li>
+                    <li class="menu-item" data-section="news">
+                        <i class="fas fa-newspaper"></i>
+                        <span>News Management</span>
+                    </li>
+                    <li class="menu-item" data-section="profiles">
+                        <i class="fas fa-users"></i>
+                        <span>Profiles</span>
+                    </li>
+                    <li class="menu-item" data-section="services">
+                        <i class="fas fa-concierge-bell"></i>
+                        <span>Services Directory</span>
+                    </li>
+                    <li class="menu-item" data-section="tourism">
+                        <i class="fas fa-map-marked-alt"></i>
+                        <span>Tourism</span>
+                    </li>
+                    <li class="menu-item" data-section="media">
+                        <i class="fas fa-images"></i>
+                        <span>Media Gallery</span>
+                    </li>
+                    <li class="menu-item" data-section="categories">
+                        <i class="fas fa-tags"></i>
+                        <span>Categories</span>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+        <!-- Main Content Area -->
+        <main class="cms-main" id="cms-main">
+            <!-- Dashboard Section -->
+            <section id="dashboard-section" class="content-section active">
+                <div class="section-header">
+                    <h2>Dashboard</h2>
+                    <p>Welcome to the Visakhapatnam News CMS</p>
+                </div>
+
+                <div class="dashboard-stats">
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-newspaper"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h3 id="total-news">0</h3>
+                            <p>Total News Articles</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h3 id="total-profiles">0</h3>
+                            <p>Profiles</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-concierge-bell"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h3 id="total-services">0</h3>
+                            <p>Service Listings</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-eye"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h3 id="page-views">89,567</h3>
+                            <p>Page Views</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dashboard-content">
+                    <div class="recent-activity">
+                        <h3>Recent Activity</h3>
+                        <div class="activity-list" id="activity-list">
+                            <!-- Activity items will be populated by JavaScript -->
+                        </div>
+                    </div>
+                    <div class="quick-actions">
+                        <h3>Quick Actions</h3>
+                        <div class="action-buttons">
+                            <button class="btn btn--primary" data-action="add-news">
+                                <i class="fas fa-plus"></i> Add News
+                            </button>
+                            <button class="btn btn--secondary" data-action="add-profile">
+                                <i class="fas fa-user-plus"></i> Add Profile
+                            </button>
+                            <button class="btn btn--outline" data-action="add-service">
+                                <i class="fas fa-plus-circle"></i> Add Service
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- News Management Section -->
+            <section id="news-section" class="content-section">
+                <div class="section-header">
+                    <h2>News Management</h2>
+                    <button class="btn btn--primary" id="add-news-btn">
+                        <i class="fas fa-plus"></i> Add News Article
+                    </button>
+                </div>
+
+                <div class="content-filters">
+                    <div class="filter-group">
+                        <input type="text" id="news-search" class="form-control" placeholder="Search news...">
+                        <select id="news-category-filter" class="form-control">
+                            <option value="">All Categories</option>
+                        </select>
+                        <select id="news-status-filter" class="form-control">
+                            <option value="">All Status</option>
+                            <option value="published">Published</option>
+                            <option value="draft">Draft</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="data-table-container">
+                    <table class="data-table" id="news-table">
+                        <thead>
+                            <tr>
+                                <th>Title</th>
+                                <th>Category</th>
+                                <th>Author</th>
+                                <th>Date</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="news-table-body">
+                            <!-- News data will be populated by JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Profiles Management Section -->
+            <section id="profiles-section" class="content-section">
+                <div class="section-header">
+                    <h2>Profiles Management</h2>
+                    <button class="btn btn--primary" id="add-profile-btn">
+                        <i class="fas fa-plus"></i> Add Profile
+                    </button>
+                </div>
+
+                <div class="content-filters">
+                    <div class="filter-group">
+                        <input type="text" id="profiles-search" class="form-control" placeholder="Search profiles...">
+                        <select id="profiles-party-filter" class="form-control">
+                            <option value="">All Parties</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="data-table-container">
+                    <table class="data-table" id="profiles-table">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Designation</th>
+                                <th>Party</th>
+                                <th>Contact</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="profiles-table-body">
+                            <!-- Profiles data will be populated by JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Services Directory Section -->
+            <section id="services-section" class="content-section">
+                <div class="section-header">
+                    <h2>Services Directory</h2>
+                    <button class="btn btn--primary" id="add-service-btn">
+                        <i class="fas fa-plus"></i> Add Service
+                    </button>
+                </div>
+
+                <div class="content-filters">
+                    <div class="filter-group">
+                        <input type="text" id="services-search" class="form-control" placeholder="Search services...">
+                        <select id="services-category-filter" class="form-control">
+                            <option value="">All Categories</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="data-table-container">
+                    <table class="data-table" id="services-table">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Category</th>
+                                <th>Address</th>
+                                <th>Contact</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="services-table-body">
+                            <!-- Services data will be populated by JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Tourism Section -->
+            <section id="tourism-section" class="content-section">
+                <div class="section-header">
+                    <h2>Tourism Management</h2>
+                    <button class="btn btn--primary" id="add-tourism-btn">
+                        <i class="fas fa-plus"></i> Add Tourist Attraction
+                    </button>
+                </div>
+
+                <div class="tourism-grid" id="tourism-grid">
+                    <!-- Tourism attractions will be populated by JavaScript -->
+                </div>
+            </section>
+
+            <!-- Media Gallery Section -->
+            <section id="media-section" class="content-section">
+                <div class="section-header">
+                    <h2>Media Gallery</h2>
+                    <button class="btn btn--primary" id="upload-media-btn">
+                        <i class="fas fa-upload"></i> Upload Media
+                    </button>
+                </div>
+
+                <div class="media-tabs">
+                    <button class="tab-btn active" data-tab="photos">Photos</button>
+                    <button class="tab-btn" data-tab="videos">Videos</button>
+                </div>
+
+                <div class="media-gallery" id="media-gallery">
+                    <div class="media-placeholder">
+                        <i class="fas fa-images"></i>
+                        <p>No media files uploaded yet</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Categories Section -->
+            <section id="categories-section" class="content-section">
+                <div class="section-header">
+                    <h2>Content Categories</h2>
+                    <button class="btn btn--primary" id="add-category-btn">
+                        <i class="fas fa-plus"></i> Add Category
+                    </button>
+                </div>
+
+                <div class="categories-grid" id="categories-grid">
+                    <!-- Categories will be populated by JavaScript -->
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Modal for Forms -->
+    <div id="modal" class="modal hidden">
+        <div class="modal-overlay"></div>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modal-title">Modal Title</h3>
+                <button class="modal-close" id="modal-close">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body" id="modal-body">
+                <!-- Modal content will be populated by JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Confirmation Dialog -->
+    <div id="confirm-dialog" class="modal hidden">
+        <div class="modal-overlay"></div>
+        <div class="modal-content confirm-dialog">
+            <div class="confirm-icon">
+                <i class="fas fa-exclamation-triangle"></i>
+            </div>
+            <h3 id="confirm-title">Confirm Action</h3>
+            <p id="confirm-message">Are you sure you want to perform this action?</p>
+            <div class="confirm-actions">
+                <button id="confirm-cancel" class="btn btn--outline">Cancel</button>
+                <button id="confirm-ok" class="btn btn--primary">Confirm</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notification Container -->
+    <div id="notification-container" class="notification-container"></div>
+
+    <script src="app.js"></script>
+</body>
+</html>
